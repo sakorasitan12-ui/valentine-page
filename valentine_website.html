@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ffe6e6;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+  }
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: float 5s linear infinite;
+    user-select: none;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0;}
+    50% { opacity: 1;}
+    100% { transform: translateY(-10vh) translateX(50px); opacity: 0;}
+  }
+  #message {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10;
+    margin-bottom: 20px;
+  }
+  .buttons {
+    display: flex;
+    gap: 20px;
+    z-index: 10;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  button {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #ff4d6d;
+    color: white;
+    transition: transform 0.3s;
+  }
+  #love-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 20;
+  }
+  #love-message img {
+    width: 150px;
+    margin-top: 15px;
+  }
+  .graffiti {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url('https://i.imgur.com/5tj6S7Ol.png');
+    background-size: cover;
+    z-index: 5;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    #message { font-size: 20px; }
+    button { font-size: 16px; padding: 12px 24px; }
+  }
+</style>
+</head>
+<body>
+<div id="message">PREETI, WILL YOU BE MY VALENTINE?</div>
+<div class="buttons">
+  <button id="yes">YES</button>
+  <button id="no">NO</button>
+</div>
+<div id="love-message" style="display:none;">
+  I KNEW YOU LOVE ME<br>
+  <img src="https://media.giphy.com/media/3o7aD6pqG9pOe5YcSY/giphy.gif" alt="Dancing">
+</div>
+<div class="graffiti" style="display:none;"></div>
+<script>
+  const noBtn = document.getElementById('no');
+  const yesBtn = document.getElementById('yes');
+  const loveMsg = document.getElementById('love-message');
+  const graffiti = document.querySelector('.graffiti');
+
+  noBtn.addEventListener('mouseenter', moveNo);
+  noBtn.addEventListener('touchstart', moveNo);
+
+  function moveNo() {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+  }
+
+  yesBtn.addEventListener('click', () => {
+    loveMsg.style.display = 'block';
+    graffiti.style.display = 'block';
+    document.querySelector('.buttons').style.display = 'none';
+    document.getElementById('message').style.display = 'none';
+  });
+
+  const colors = ['❤️','💖','💘','💝','💕','💗'];
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.fontSize = (12 + Math.random()*24) + 'px';
+    heart.innerText = colors[Math.floor(Math.random()*colors.length)];
+    heart.style.animationDuration = (3 + Math.random()*5) + 's';
+    document.body.appendChild(heart);
+  }
+<
